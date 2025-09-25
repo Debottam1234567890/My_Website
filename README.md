@@ -32,11 +32,3 @@ cd My_Website
 ## Contribution
 
 Contributions are welcome! You can fork the repository, make improvements, and submit a pull request.
-
-## License
-
-This project is licensed under the MIT License.
-
----
-
-*This README provides a comprehensive overview of the My\_Website project, its features, folder structure, and setup instructions.*
