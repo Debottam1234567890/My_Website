@@ -2,46 +2,536 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V9ZSL7ZQCY"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-V9ZSL7ZQCY');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V9ZSL7ZQCY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-V9ZSL7ZQCY');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support | Debottam</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Support | Debottam Ghosh</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --dark: #1a202c;
+            --light: #f7fafc;
+            --text: #2d3748;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            overflow-x: hidden;
+            background: var(--light);
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-50px) translateX(-50px); }
+            75% { transform: translateY(-150px) translateX(100px); }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: var(--primary);
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+        }
+
+        .hero-section {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 70px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-section .subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .support-section {
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .support-intro {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .support-intro h2 {
+            color: var(--dark);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .support-intro p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .support-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+        }
+
+        .support-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .support-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .support-card h3 {
+            color: var(--dark);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .support-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+        }
+
+        .support-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .support-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .appreciation-box {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 3rem;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .appreciation-box h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .appreciation-box p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-section .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .support-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .support-card {
+                padding: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
+    <div class="bg-animation">
+        <div class="particle" style="width: 20px; height: 20px; top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="width: 30px; height: 30px; top: 60%; left: 80%; animation-delay: 2s;"></div>
+        <div class="particle" style="width: 15px; height: 15px; top: 40%; left: 50%; animation-delay: 4s;"></div>
+        <div class="particle" style="width: 25px; height: 25px; top: 80%; left: 30%; animation-delay: 6s;"></div>
+    </div>
+
+    <header id="header">
         <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="achievements.html">Achievements</a></li>
-                <li><a href="goals.html">Goals</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="support.html">Support</a></li>
+            <div class="logo">DG</div>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="nav-menu">
+                <li><a href="index.html" onclick="closeMenu()">Home</a></li>
+                <li><a href="goals.html" onclick="closeMenu()">Goals</a></li>
+                <li><a href="achievements.html" onclick="closeMenu()">Achievements</a></li>
+                <li><a href="blog.html" onclick="closeMenu()">Blog</a></li>
+                <li><a href="support.html" class="active" onclick="closeMenu()">Support</a></li>
             </ul>
         </nav>
     </header>
 
-    <section class="support">
-        <h1>How You Can Support Me</h1>
-        <p>Support me by:</p>
-        <ul>
-            <li>Following me on <a href="https://github.com/Debottam1234567890" target="_blank">GitHub</a></li>
-            <li>Sharing my projects with others</li>
-            <li>Donating to my open-source projects (TBD)</li>
-        </ul>
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>How You Can Support Me</h1>
+            <p class="subtitle">Help me continue building impactful AI projects</p>
+        </div>
+    </section>
+
+    <section class="support-section">
+        <div class="support-intro fade-in">
+            <h2>Your Support Matters</h2>
+            <p>
+                Every bit of support helps me continue my journey in AI development, learning, and creating projects that make a difference. Whether it's a follow, a share, or a donation, your contribution fuels my passion for innovation and helps me reach my goals.
+            </p>
+        </div>
+
+        <div class="support-grid">
+            <div class="support-card fade-in">
+                <div class="support-icon">💻</div>
+                <h3>Follow on GitHub</h3>
+                <p>
+                    Stay updated with my latest projects, contributions, and open-source work. Every follow motivates me to push harder and create better solutions.
+                </p>
+                <a href="https://github.com/Debottam1234567890" target="_blank" class="support-link">
+                    Follow Me on GitHub
+                </a>
+            </div>
+
+            <div class="support-card fade-in">
+                <div class="support-icon">🌐</div>
+                <h3>Share My Projects</h3>
+                <p>
+                    Help spread the word! Share my projects with your friends, colleagues, and community. Your network could include someone who benefits from my work or wants to collaborate.
+                </p>
+                <a href="https://plantdrai.xyz" target="_blank" class="support-link">
+                    Visit Plant Doctor AI
+                </a>
+            </div>
+
+            <div class="support-card fade-in">
+                <div class="support-icon">💰</div>
+                <h3>Donate to My Projects</h3>
+                <p>
+                    Support my open-source work and help fund future projects. Donations help me invest in better tools, learning resources, and server costs for deployed applications.
+                </p>
+
+            </div>
+        </div>
+
+        <div class="appreciation-box fade-in">
+            <h3>🙏 Thank You!</h3>
+            <p>
+                Your support means the world to me. Every follow, share, and contribution brings me one step closer to my dream of studying at Harvard and becoming a leading AI innovator. Together, we're building a future where technology empowers everyone.
+            </p>
+        </div>
     </section>
 
     <footer>
         <p>&copy; 2025 Debottam Ghosh. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; opacity: 0.8;">AI Enthusiast | Aspiring Harvard Student</p>
+        <p style="margin-top: 0.3rem; opacity: 0.7; font-size: 0.9rem;">Building impactful AI solutions for real-world problems</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.remove('active');
+        }
+    </script>
 </body>
 </html>
