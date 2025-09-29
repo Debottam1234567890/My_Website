@@ -2,73 +2,684 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V9ZSL7ZQCY"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-V9ZSL7ZQCY');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V9ZSL7ZQCY"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-V9ZSL7ZQCY');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog - Projects</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <title>Blog | Debottam Ghosh</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --dark: #1a202c;
+            --light: #f7fafc;
+            --text: #2d3748;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            overflow-x: hidden;
+            background: var(--light);
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-50px) translateX(-50px); }
+            75% { transform: translateY(-150px) translateX(100px); }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: var(--primary);
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+        }
+
+        .hero-section {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 70px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-section .subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .blog-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .blog-intro {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .blog-intro p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .blog-grid {
+            display: grid;
+            gap: 3rem;
+        }
+
+        .blog-post {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+        }
+
+        .blog-post::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .blog-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-icon {
+            font-size: 3rem;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .blog-post h2 {
+            color: var(--dark);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .blog-post strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .blog-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .blog-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .tech-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .tag {
+            background: var(--light);
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .closing-note {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 4rem;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .closing-note h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .closing-note p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-section .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .blog-post {
+                padding: 2rem;
+            }
+
+            .blog-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .blog-post h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
+    <div class="bg-animation">
+        <div class="particle" style="width: 20px; height: 20px; top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="width: 30px; height: 30px; top: 60%; left: 80%; animation-delay: 2s;"></div>
+        <div class="particle" style="width: 15px; height: 15px; top: 40%; left: 50%; animation-delay: 4s;"></div>
+        <div class="particle" style="width: 25px; height: 25px; top: 80%; left: 30%; animation-delay: 6s;"></div>
+    </div>
+
+    <header id="header">
         <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="achievements.html">Achievements</a></li>
-                <li><a href="goals.html">Goals</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="support.html">How to Support</a></li>
+            <div class="logo">DG</div>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="nav-menu">
+                <li><a href="index.html" onclick="closeMenu()">Home</a></li>
+                <li><a href="goals.html" onclick="closeMenu()">Goals</a></li>
+                <li><a href="achievements.html" onclick="closeMenu()">Achievements</a></li>
+                <li><a href="blog.html" class="active" onclick="closeMenu()">Blog</a></li>
+                <li><a href="support.html" onclick="closeMenu()">Support</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <section class="blog">
-            <h1>My Blog: How I Built My Projects</h1>
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>🧠 My Blog</h1>
+            <p class="subtitle">How I Built My Projects</p>
+        </div>
+    </section>
 
-            <article>
-                <h2>15 Puzzle Solver</h2>
-                <p>In this project, I developed a <strong>15-puzzle solver</strong> using Python. The project focuses on solving the classic 15-puzzle game using algorithms such as A* and BFS (Breadth-First Search). I used heuristics like Manhattan Distance to optimize the solver.</p>
-                <p>Learn more on my <a href="https://github.com/Debottam1234567890/15-puzzle-solver" target="_blank">GitHub repository</a>.</p>
+    <section class="blog-section">
+        <div class="blog-intro fade-in">
+            <p>
+                💡 Each of these projects represents a key step in my AI journey — from solving classic puzzles and organizing everyday life, to exploring human dreams, detecting scams, and helping farmers. Together, they reflect not just my technical skills, but also my curiosity, creativity, and determination to build intelligent systems that make a difference.
+            </p>
+        </div>
+
+        <div class="blog-grid">
+            <article class="blog-post fade-in">
+                <div class="blog-header">
+                    <div class="blog-icon">🧩</div>
+                    <div>
+                        <h2>15 Puzzle Solver</h2>
+                    </div>
+                </div>
+                <p>
+                    One of my earliest and most exciting projects was building a <strong>15-Puzzle Solver</strong> in Python — a classic sliding puzzle where tiles numbered 1 to 15 must be arranged in order. My goal was to create an intelligent solver that could handle even the most complex puzzle states efficiently.
+                </p>
+                <p>
+                    I implemented powerful search algorithms like <strong>A*</strong> (A-star) and <strong>Breadth-First Search (BFS)</strong> to explore the puzzle state space and find the shortest path to the solution. I also integrated heuristics such as <strong>Manhattan Distance</strong> to guide the solver intelligently, significantly improving its speed and efficiency. Through this project, I learned how AI search algorithms work, how heuristics can improve decision-making, and how computers "think" through problems step by step.
+                </p>
+                <div class="tech-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">A* Algorithm</span>
+                    <span class="tag">BFS</span>
+                    <span class="tag">Heuristics</span>
+                </div>
+                <a href="https://github.com/Debottam1234567890/15-puzzle-solver" target="_blank" class="blog-link">
+                    👉 View on GitHub
+                </a>
             </article>
 
-            <article>
-                <h2>15 Puzzle GUI Solver</h2>
-                <p>This project extends the 15 Puzzle Solver with a <strong>Graphical User Interface (GUI)</strong> built using Pygame. The interface allows users to visualize the puzzle and interact with the solver in real-time. This made the puzzle-solving process more intuitive and user-friendly.</p>
-                <p>Learn more on my <a href="https://github.com/Debottam1234567890/15-puzzle-gui-solver" target="_blank">GitHub repository</a>.</p>
+            <article class="blog-post fade-in">
+                <div class="blog-header">
+                    <div class="blog-icon">🎮</div>
+                    <div>
+                        <h2>15 Puzzle GUI Solver</h2>
+                    </div>
+                </div>
+                <p>
+                    After building the logic behind the 15 Puzzle Solver, I wanted to make it more interactive and fun. That's why I created the <strong>15 Puzzle GUI Solver</strong>, a graphical version of the solver using <strong>Pygame</strong>.
+                </p>
+                <p>
+                    With this version, users can visually see the puzzle state, interact with it, shuffle tiles, and even watch the AI solve it in real-time. This project taught me how to connect complex backend algorithms with user-friendly interfaces — a crucial skill for building AI-powered apps. It also gave me hands-on experience in event handling, animations, and UI design.
+                </p>
+                <div class="tech-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Pygame</span>
+                    <span class="tag">GUI Development</span>
+                    <span class="tag">Real-time Visualization</span>
+                </div>
+                <a href="https://github.com/Debottam1234567890/15-puzzle-gui-solver" target="_blank" class="blog-link">
+                    👉 View on GitHub
+                </a>
             </article>
 
-            <article>
-                <h2>Homework Tracker</h2>
-                <p>My <strong>Homework Tracker</strong> project is designed to help students manage their tasks and homework. I built it using Python, CSV, and added a colorful GUI with Pygame. The app tracks subjects, descriptions, due dates, and priorities. It also sends reminders via email or Telegram.</p>
-                <p>Learn more on my <a href="https://github.com/Debottam1234567890/homework-tracker" target="_blank">GitHub repository</a>.</p>
+            <article class="blog-post fade-in">
+                <div class="blog-header">
+                    <div class="blog-icon">📚</div>
+                    <div>
+                        <h2>Homework Tracker</h2>
+                    </div>
+                </div>
+                <p>
+                    Managing schoolwork can be challenging, so I built the <strong>Homework Tracker</strong> — a productivity tool designed especially for students like me. It helps organize homework, projects, and tasks by tracking <strong>subjects, descriptions, due dates, priorities, and log dates</strong>.
+                </p>
+                <p>
+                    I built it using Python and CSV for data handling, and added a <strong>colorful GUI</strong> with Pygame to make it visually engaging. To make it even smarter, I integrated features like <strong>email and Telegram reminders</strong>, so you never miss a deadline. This project helped me explore real-world software design — combining data storage, user interaction, and automation in one practical app.
+                </p>
+                <div class="tech-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">CSV</span>
+                    <span class="tag">Pygame</span>
+                    <span class="tag">Email/Telegram API</span>
+                </div>
+                <a href="https://github.com/Debottam1234567890/homework-tracker" target="_blank" class="blog-link">
+                    👉 View on GitHub
+                </a>
             </article>
 
-            <article>
-                <h2>Dream Insights</h2>
-                <p>Dream Insights is a project that analyzes dream descriptions to predict various factors like lucidity, emotional intensity, realism, etc. I built it using machine learning models, including Random Forest Regression, and used PCA for visualizing the data. The project also includes a web interface for inputting dream descriptions and getting predictions.</p>
-                <p>Learn more on my <a href="https://github.com/Debottam1234567890/dream-insights" target="_blank">GitHub repository</a>.</p>
+            <article class="blog-post fade-in">
+                <div class="blog-header">
+                    <div class="blog-icon">🌙</div>
+                    <div>
+                        <h2>Dream Insights</h2>
+                    </div>
+                </div>
+                <p>
+                    The <strong>Dream Insights</strong> project explores a fascinating field: analyzing dream descriptions using machine learning. The goal was to build a system that predicts factors like <strong>lucidity</strong>, <strong>emotional intensity</strong>, and <strong>realism</strong> based solely on text.
+                </p>
+                <p>
+                    I trained machine learning models like <strong>Random Forest Regression</strong> and used <strong>Principal Component Analysis (PCA)</strong> for visualizing high-dimensional data. I also created a <strong>web interface</strong> so users could input dream descriptions and instantly receive predictions. This project taught me how to handle natural language data, preprocess text, train regression models, and build interactive AI tools. It's one of my most creative and exploratory projects so far.
+                </p>
+                <div class="tech-tags">
+                    <span class="tag">Machine Learning</span>
+                    <span class="tag">Random Forest</span>
+                    <span class="tag">PCA</span>
+                    <span class="tag">Web Interface</span>
+                </div>
+                <a href="https://github.com/Debottam1234567890/dream-insights" target="_blank" class="blog-link">
+                    👉 View on GitHub
+                </a>
             </article>
 
-            <article>
-                <h2>Scam Detector</h2>
-                <p>The <strong>Scam Detector</strong> project is focused on identifying scam content from video transcripts. I used Natural Language Processing (NLP) techniques, including text vectorization and keyword analysis, to detect signs of scams in the text. I also used Machine Learning techniques. The project aims to flag potentially harmful or fraudulent content based on predefined scam indicators.</p>
-                <p>Learn more on my <a href="https://github.com/Debottam1234567890/Scam-Detector" target="_blank">GitHub repository</a>.</p>
+            <article class="blog-post fade-in">
+                <div class="blog-header">
+                    <div class="blog-icon">🔍</div>
+                    <div>
+                        <h2>Scam Detector</h2>
+                    </div>
+                </div>
+                <p>
+                    The <strong>Scam Detector</strong> is a powerful project focused on identifying scams within video transcripts using <strong>Natural Language Processing (NLP)</strong>. I built a pipeline that analyzes text data, performs <strong>vectorization</strong>, and detects <strong>scam-related keywords and patterns</strong>.
+                </p>
+                <p>
+                    Using ML models and carefully designed <strong>scam indicators</strong>, the system flags potentially fraudulent or harmful content before it spreads. This project deepened my understanding of NLP, feature engineering, and text classification. It also showed me how AI can be applied to real-world safety problems — protecting people from online scams and misinformation.
+                </p>
+                <div class="tech-tags">
+                    <span class="tag">NLP</span>
+                    <span class="tag">Machine Learning</span>
+                    <span class="tag">Text Classification</span>
+                    <span class="tag">Feature Engineering</span>
+                </div>
+                <a href="https://github.com/Debottam1234567890/Scam-Detector" target="_blank" class="blog-link">
+                    👉 View on GitHub
+                </a>
             </article>
 
-        </section>
-    </main>
+            <article class="blog-post fade-in">
+                <div class="blog-header">
+                    <div class="blog-icon">🌿</div>
+                    <div>
+                        <h2>Plant Doctor AI</h2>
+                    </div>
+                </div>
+                <p>
+                    <strong>Plant Doctor AI</strong> is one of my most impactful projects — a deep learning-powered application that identifies plant diseases from leaf images. Using a <strong>ResNet18 CNN model</strong> trained on the <strong>PlantVillage</strong> and <strong>PlantDoc</strong> datasets, the system provides accurate disease predictions to help farmers, researchers, and plant enthusiasts.
+                </p>
+                <p>
+                    The project features a beautiful web interface, camera support, Grad-CAM heatmap visualization for explainable AI, and deployment on Render with a custom domain. This project taught me how to train deep learning models, integrate them into a full-stack application, and deploy AI systems for real-world use.
+                </p>
+                <div class="tech-tags">
+                    <span class="tag">PyTorch</span>
+                    <span class="tag">ResNet18</span>
+                    <span class="tag">Flask</span>
+                    <span class="tag">Grad-CAM</span>
+                    <span class="tag">Deployed</span>
+                </div>
+                <a href="https://github.com/Debottam1234567890/Plant-Doctor" target="_blank" class="blog-link">
+                    👉 View on GitHub
+                </a>
+            </article>
+        </div>
+
+        <div class="closing-note fade-in">
+            <h3>💡 The Journey Continues</h3>
+            <p>
+                Each project is a stepping stone in my journey to master AI and machine learning. From algorithms to deep learning, from problem-solving to real-world impact — every line of code brings me closer to building intelligent systems that change lives.
+            </p>
+        </div>
+    </section>
 
     <footer>
-        <p>Connect with me: <a href="mailto:debottam.ghosh25@gmail.com">debottam.ghosh25@gmail.com</a></p>
+        <p>&copy; 2025 Debottam Ghosh. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; opacity: 0.8;">AI Enthusiast | Aspiring Harvard Student</p>
+        <p style="margin-top: 0.3rem; opacity: 0.7; font-size: 0.9rem;">Building impactful AI solutions for real-world problems</p>
     </footer>
 
+    <script>
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.remove('active');
+        }
+    </script>
 </body>
 </html>
